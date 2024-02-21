@@ -14,7 +14,7 @@
 - AWS CLIからトピックにメッセージを発行する。  
   https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sns/publish.html
   ```
-  aws sns publish --topic-arn "arn:aws:sns:ap-northeast-1:<アカウント>:handson-sns" --message "こんにちは" --subject test
+  aws sns publish --topic-arn "arn:aws:sns:ap-northeast-1:<アカウント>:<トピック名>" --message "こんにちは" --subject test
   ```  
   <details>
   <summary>ヒント</summary>
@@ -32,7 +32,7 @@
   
   def lambda_handler(event, context):
       response = client.publish(
-          TopicArn='arn:aws:sns:ap-northeast-1:486069495702:handson-sns',
+          TopicArn='arn:aws:sns:ap-northeast-1:<アカウント>:<トピック名>',
           Message='こんにちは',
           Subject='test from Lambda',
       )
@@ -90,7 +90,7 @@ def lambda_handler(event, context):
         my_subject = 'test from Lambda'
     
     response = client.publish(
-        TopicArn='arn:aws:sns:ap-northeast-1:486069495702:handson-sns',
+        TopicArn='arn:aws:sns:ap-northeast-1:<アカウント>:<トピック名>',
         Message=my_message,
         Subject=my_subject,
     )
@@ -102,13 +102,13 @@ def lambda_handler(event, context):
 ```
   もう一度発行してみる。  
   ```
-  https://xb2n1f3blb.execute-api.ap-northeast-1.amazonaws.com/api?subject=test&message=こんにちは
+  https://<API ID>.execute-api.ap-northeast-1.amazonaws.com/api?subject=test&message=こんにちは
   ```
 
 5. APIを使って、スマホにショートメールを送ってみる。その2  
   もう一度EC2に接続して、curlで実行してみる。  
    ```
-   curl https://xb2n1f3blb.execute-api.ap-northeast-1.amazonaws.com/api?subject=test&message=こんにちは
+   curl https://<API ID>.execute-api.ap-northeast-1.amazonaws.com/api?subject=test&message=こんにちは
    ```
   …うまくいくには？  
 
